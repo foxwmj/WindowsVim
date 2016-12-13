@@ -38,6 +38,10 @@ call plug#begin("d:\\03_vim8_setup\\vim.plug.runtime")
 
 **非必须-Coding自动提醒**
 
+**YCMD启动失败，加载DLL失败的解决方法**
+安装VC Runtime[下载地址](https://www.microsoft.com/zh-cn/download/details.aspx?id=48145)
+
+
 VIM激活方法:
 
 ```

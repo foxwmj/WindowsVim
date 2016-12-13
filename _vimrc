@@ -78,7 +78,7 @@ endif
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-call plug#begin("d:\\WindowsVim\\vim.plug.runtime")
+call plug#begin("d:\\00_dev_env\\20_Vim8\\vim.plug.runtime")
 
 " My Bundles here:
 " ----------------
