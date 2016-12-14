@@ -24,8 +24,12 @@
 " Constant
 "==============================================
 
-
-let s:PATH_DIVISOR = "\\"
+if has('win32') || has('win64')
+    let s:PATH_DIVISOR = "\\"
+else
+    let s:PATH_DIVISOR = "/"
+endif
+let s:VIMRC_PATH = getcwd()
 let s:CODE_DIR= $HOME . s:PATH_DIVISOR . "code_projs"
 let s:PY_PROJECTS_PATH = s:CODE_DIR . s:PATH_DIVISOR . "PY_projs"
 let s:TC_PROJECTS_PATH = s:CODE_DIR . s:PATH_DIVISOR . "tc"

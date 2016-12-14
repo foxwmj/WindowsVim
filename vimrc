@@ -1,13 +1,29 @@
 set nocompatible
 set t_Co=256                " Color number
 
+if has('win32') || has('win64')
+    let s:PATH_DIVISOR = "\\"
+else
+    let s:PATH_DIVISOR = "/"
+endif
+let s:VIMRC_PATH = expand('<sfile>:p:h')
+
 " import windows
-if filereadable(expand("~/.vim/vendor/gvim_windows/gvim_windows_default.vim"))
-    source ~/.vim/vendor/gvim_windows/gvim_windows_default.vim
+" ~/.vim/vendor/gvim_windows/gvim_windows_default.vim"
+let s:WINDOWS_VIM = s:VIMRC_PATH . s:PATH_DIVISOR . "vendor"
+\                                  . s:PATH_DIVISOR . "gvim_windows"
+\                                  . s:PATH_DIVISOR . "gvim_windows_default.vim"
+if filereadable(s:WINDOWS_VIM)
+    exec "source " . s:WINDOWS_VIM
 endif
 
-if filereadable(expand("~/.vim/vendor/gvim_windows/mswin.vim"))
-    source ~/.vim/vendor/gvim_windows/mswin.vim
+
+" ~/.vim/vendor/gvim_windows/mswin.vim"
+let s:MSWIN_VIM = s:VIMRC_PATH . s:PATH_DIVISOR . "vendor"
+\                              . s:PATH_DIVISOR . "gvim_windows"
+\                              . s:PATH_DIVISOR . "mswin.vim"
+if filereadable(s:MSWIN_VIM)
+    exec "source " . s:MSWIN_VIM
 endif
 
 "==============================================
@@ -17,10 +33,11 @@ set nocompatible               " be iMproved
 filetype off                   " required!
 
 if has('win32') || has('win64')
-    call plug#begin("d:\\WindowsVim\\vim.plug.runtime")
+    let s:PLUG_PATH = s:VIMRC_PATH . s:PATH_DIVISOR . "vim.plug.runtime"
 else
-    call plug#begin()
+    let s:PLUG_PATH = s:VIMRC_PATH . s:PATH_DIVISOR . "plugged"
 endif
+    call plug#begin(s:PLUG_PATH)
 
 " My Bundles here:
 " ----------------
@@ -33,9 +50,17 @@ Plug 'FuzzyFinder'
 Plug 'Tagbar'             " browse the tags of the current file and get an overview of its structure
 " ------------------------------------------------------------------
 Plug 'ervandew/supertab'
-Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets' " Snippets are separated from the engine. Add this if you want them:
-" ------------------------------
+
+" Plug 'SirVer/ultisnips'
+" ------------------------------------------------------------------
+Plug 'SirVer/ultisnips'
+"set rtp+="D:\\WindowsVim\\vim.plug.runtime\\my_snippets"
+let g:UltiSnipsSnippetDirectories=["UltiSnips","wmj_snippets"]           
+
+
+" Plug 'Valloric/YouCompleteMe' 
+" ------------------------------------------------------------------
 " How to solve YCM start slowly
 " https://github.com/Valloric/YouCompleteMe/issues/893
 " ------------------------------
@@ -52,6 +77,9 @@ function! YCM()
         call youcompleteme#Enable()
     endif
 endfunction
+if !exists(":YCM")
+    command YCM call YCM()
+endif
 " ------------------------------
 " http://stackoverflow.com/questions/14896327/ultisnips-and-youcompleteme
 " ------------------------------
@@ -61,6 +89,7 @@ let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 let g:SuperTabDefaultCompletionType = '<C-n>'
 " better key bindings for UltiSnipsExpandTrigger
 let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsListSnippets = "<c-tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " ------------------------------------------------------------------
@@ -68,6 +97,7 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 " All of your Plugins must be added before the following line
 call plug#end()
 filetype plugin indent on
+
 
 
 "==============================================
@@ -133,11 +163,59 @@ set hlsearch
 set ignorecase
 
 
+" Ctags
+"-------------------
+if has("win32") || has("win64")
+    let g:Tlist_Ctags_Cmd=$VIM . '/tools/ctags58/ctags.exe'
+    let $CTAGS=g:Tlist_Ctags_Cmd
+endif
+set tags=./tags;  "This will look in the current directory for tags, and work up the tree towards root until one is found.
+let tlist_objc_settings    = 'objc;i:interface;c:class;m:method;p:property'
+let g:tagbar_ctags_bin=g:Tlist_Ctags_Cmd
 
-if filereadable(expand("~/.vim/shortcut"))
-    source ~/.vim/shortcut
+" add a definition for Objective-C to tagbar
+let g:tagbar_type_objc = {
+    \ 'ctagstype' : 'objc',
+    \ 'kinds'     : [
+        \ 'i:interface',
+        \ 'I:implementation',
+        \ 'p:Protocol',
+        \ 'm:Object_method',
+        \ 'c:Class_method',
+        \ 'v:Global_variable',
+        \ 'F:Object field',
+        \ 'f:function',
+        \ 'p:property',
+        \ 't:type_alias',
+        \ 's:type_structure',
+        \ 'e:enumeration',
+        \ 'M:preprocessor_macro',
+    \ ],
+    \ 'sro'        : ' ',
+    \ 'kind2scope' : {
+        \ 'i' : 'interface',
+        \ 'I' : 'implementation',
+        \ 'p' : 'Protocol',
+        \ 's' : 'type_structure',
+        \ 'e' : 'enumeration'
+    \ },
+    \ 'scope2kind' : {
+        \ 'interface'      : 'i',
+        \ 'implementation' : 'I',
+        \ 'Protocol'       : 'p',
+        \ 'type_structure' : 's',
+        \ 'enumeration'    : 'e'
+    \ }
+\ }
+
+" ~/.vim/shortcut
+let s:SHORTCUT_FILE = s:VIMRC_PATH . s:PATH_DIVISOR . "shortcut"
+if filereadable(s:SHORTCUT_FILE)
+    exec "source " . s:SHORTCUT_FILE
 endif
 
-if filereadable(expand("~/.vim/function"))
-    source ~/.vim/function
+" ~/.vim/function
+let s:FUNCTION_FILE = s:VIMRC_PATH . s:PATH_DIVISOR . "function"
+if filereadable(s:FUNCTION_FILE)
+    exec "source " . s:FUNCTION_FILE
 endif
