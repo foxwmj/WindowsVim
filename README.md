@@ -13,7 +13,7 @@
 - 安装VIM： vim80\install.exe （管理员模式安装）
 - 安装字体： fonts\ 所有字体安装
 - **vim80可能不用** 注册VIM到右键菜单： 改变install\popup_menu.reg里的路径， 运行install\popup_menu.reg
-- 解压缩vim.plug.runtime.zip到vim.plug.runtime
+- 解压缩vim.plug.runtime.zip到**.vim**/vim.plug.runtime
 
 ## 配置VIM 插件
 
