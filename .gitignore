@@ -1,2 +1,3 @@
 vim.plug.runtime/
 bundle/
+plugged/
