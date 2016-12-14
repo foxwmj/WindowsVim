@@ -425,7 +425,11 @@ endfunction
 
 " Short Cut
 "--------------------
-map <C-F2> <Esc>:e $VIM/_vimrc<CR>
+if has('win32') || has('win64')
+    map <C-F2> <Esc>:e $VIM/.vim/_vimrc_windows<CR>
+else
+    map <C-F2> <Esc>:e ~/.vim/vimrc<CR>
+endif
 "map <S-F2> <Esc>:source $VIM/_vimrc<CR>
 "map <C-F3> <Esc>:call Sync_vim_and_proj()<CR>
 map <C-F3> <Esc>:call Commit_vim_and_proj()<CR>
