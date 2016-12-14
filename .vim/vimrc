@@ -10,21 +10,17 @@ let s:VIMRC_PATH = expand('<sfile>:p:h')
 
 " import windows
 " ~/.vim/vendor/gvim_windows/gvim_windows_default.vim"
-let s:WINDOWS_VIM = s:VIMRC_PATH . s:PATH_DIVISOR . "vendor"
-\                                  . s:PATH_DIVISOR . "gvim_windows"
-\                                  . s:PATH_DIVISOR . "gvim_windows_default.vim"
+let s:WINDOWS_VIM = s:VIMRC_PATH . s:PATH_DIVISOR . "vendor" . s:PATH_DIVISOR . "gvim_windows" . s:PATH_DIVISOR . "gvim_windows_default.vim"
 if filereadable(s:WINDOWS_VIM)
     exec "source " . s:WINDOWS_VIM
 endif
 
-
 " ~/.vim/vendor/gvim_windows/mswin.vim"
-let s:MSWIN_VIM = s:VIMRC_PATH . s:PATH_DIVISOR . "vendor"
-\                              . s:PATH_DIVISOR . "gvim_windows"
-\                              . s:PATH_DIVISOR . "mswin.vim"
+let s:MSWIN_VIM = s:VIMRC_PATH . s:PATH_DIVISOR . "vendor" . s:PATH_DIVISOR . "gvim_windows" . s:PATH_DIVISOR . "mswin.vim"
 if filereadable(s:MSWIN_VIM)
     exec "source " . s:MSWIN_VIM
 endif
+
 
 "==============================================
 " vim-plug
@@ -48,6 +44,7 @@ Plug 'The-NERD-tree'
 Plug 'L9'
 Plug 'FuzzyFinder'
 Plug 'Tagbar'             " browse the tags of the current file and get an overview of its structure
+Plug 'tpope/vim-fugitive' " Git wrapper
 " ------------------------------------------------------------------
 Plug 'ervandew/supertab'
 Plug 'honza/vim-snippets' " Snippets are separated from the engine. Add this if you want them:
