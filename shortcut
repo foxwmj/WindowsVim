@@ -1,0 +1,37 @@
+"vim
+
+map <F2> :NERDTreeToggle<CR>
+
+nmap <F3> :TagbarToggle<CR>
+
+nnoremap <F12> :e ++enc=utf-8<CR>
+
+
+" FuzzyFinder
+"-------------------
+map <silent> <C-k>b :FufBuffer<CR>
+map <silent> <C-k>f :FufCoverageFile<CR>
+map <silent> <C-k>m :FufTag<CR>
+map <silent> <c-k>n :FufTagWithCursorWord<CR>
+map <silent> <C-k>. :FufBufferTag<CR>
+map <silent> <C-k>p :call Py()<CR>
+map <silent> <C-k>t :call SearchTC()<CR>
+
+
+" Fast search
+"-------------------
+map <C-F5> <Esc>:e!<CR>
+map <C-F6> <Esc>:v/\(<C-R>/\)/d
+map <C-F7> <Esc>:g/\(<C-R>/\)/d
+map <C-F8> <Esc>:v/\(<c-r>=expand("<cword>")<cr>\)/d
+
+map <S-F6> <Esc>:vimgrep /\(<c-r>/\)/ <c-r>=expand("%")<cr>
+map <S-F8> <Esc>:vimgrep /\(<c-r>=expand("<cword>")<cr>\)/ <c-r>=expand("%")<cr>
+
+
+" Searching
+"-------------------
+"Search but not jump to next occurd
+map * *``
+map # #``
+

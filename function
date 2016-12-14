@@ -1,0 +1,39 @@
+"vim
+
+" CDC = Change to Directory of Current file
+"-------------------
+if !exists(":CDC")
+    command CDC lcd %:p:h
+endif
+
+"======================= Current Folder =========================
+if !exists(":GF")
+    command GF call GoCurrentFolder()
+endif
+
+function! GoCurrentFolder()
+    let $TEMP_STR = expand("%:p:h")
+    silent execute '!cmd /c start '.$TEMP_STR
+endfunction 
+
+
+"======================= Quick Edit =========================
+function! Split(sep, num)
+    let l:str = "\\(\\%([^" . a:sep . "]\\)\\+\\)" . a:sep
+    let l:out = ""
+    for index in range(a:num)
+        let l:out .= l:str
+    endfor
+    let l:out .= "\\(.*\\)"
+
+    return l:out
+endfunction
+
+function! GetLastSearch()
+    return @/
+endfunction
+
+cmap <Leader>s <C-r>=Split("\\t",)
+cmap <Leader>p \=printf("%-20s",submatch())
+cmap <Leader>/ <C-r>=GetLastSearch()<CR>
+
