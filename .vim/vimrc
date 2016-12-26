@@ -33,11 +33,10 @@ if has('win32') || has('win64')
 else
     let s:PLUG_PATH = s:VIMRC_PATH . s:PATH_DIVISOR . "plugged"
 endif
-    call plug#begin(s:PLUG_PATH)
+call plug#begin(s:PLUG_PATH)
 
 " My Bundles here:
 " ----------------
-Plug 'taglist.vim'
 Plug 'a.vim'
 Plug 'molokai'
 Plug 'The-NERD-tree'
@@ -49,10 +48,15 @@ Plug 'tpope/vim-fugitive' " Git wrapper
 set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 " ------------------------------------------------------------------
+Plug 'tpope/vim-fugitive' " Git wrapper
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+" ------------------------------------------------------------------
 Plug 'ervandew/supertab'
 Plug 'honza/vim-snippets' " Snippets are separated from the engine. Add this if you want them:
+" ------------------------------------------------------------------
+Plug 'aert/vim-powerline' " Lokaltod/vim-powerline fail. 
+let g:powerline_symbols = 'fancy'
 
-" Plug 'SirVer/ultisnips'
 " ------------------------------------------------------------------
 Plug 'SirVer/ultisnips'
 "set rtp+="D:\\WindowsVim\\vim.plug.runtime\\my_snippets"
@@ -134,7 +138,9 @@ endif
 if (has("gui_running"))
     set nowrap
     set guioptions+=b
-    autocmd GUIEnter * simalt ~x
+    if has('win32') || has('win64')
+        autocmd GUIEnter * simalt ~x
+    endif
 else
     set wrap
 endif
@@ -144,8 +150,9 @@ endif
 if has('win32') || has('win64')
     "set guifont=Inconsolata:h12
     set guifont=DejaVu_Sans_Mono:h10:cANSI
-else
-    set guifont=DejaVu\ Sans\ Mono\ 10
+elseif system('uname')=~'Darwin'
+    "set guifont=DejaVu\ Sans\ Mono\ 10
+	set guifont=Consolas:h18
 endif
 
 "Editor setting
@@ -168,7 +175,11 @@ set ignorecase
 if has("win32") || has("win64")
     let g:Tlist_Ctags_Cmd=$VIM . '/tools/ctags58/ctags.exe'
     let $CTAGS=g:Tlist_Ctags_Cmd
+elseif system('uname')=~'Darwin'
+    let g:Tlist_Ctags_Cmd='/usr/local/bin/ctags'   " brew install ctags
+    let $CTAGS=g:Tlist_Ctags_Cmd
 endif
+
 set tags=./tags;  "This will look in the current directory for tags, and work up the tree towards root until one is found.
 let tlist_objc_settings    = 'objc;i:interface;c:class;m:method;p:property'
 let g:tagbar_ctags_bin=g:Tlist_Ctags_Cmd
