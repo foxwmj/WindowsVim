@@ -72,16 +72,8 @@ function! EditFtSnippet()
     exec "vsplit " . s:WORKING_FT_SNIPPET
     "autocmd Buf
 endfunction
-" ~/.vim/vendor/all.snippets
-function! EditAllSnippet()
-    let s:WORKING_ALL_SNIPPET = s:VENDOR_PATH . s:PATH_DIVISOR . "wmj_snippets" . s:PATH_DIVISOR . "all.snippets"
-    exec "vsplit " . s:WORKING_ALL_SNIPPET
-endfunction
 if !exists(":FT")
     command FT call EditFtSnippet()
-endif
-if !exists(":FTA")
-    command FTA call EditAllSnippet()
 endif
 " ------------------------------------------------------------------
 
