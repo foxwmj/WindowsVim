@@ -59,8 +59,32 @@ let g:powerline_symbols = 'fancy'
 
 " ------------------------------------------------------------------
 Plug 'SirVer/ultisnips'
-"set rtp+="D:\\WindowsVim\\vim.plug.runtime\\my_snippets"
+
+" Add ~/.vim/vendor to rtp(RunTimePath)
+let s:VENDOR_PATH= s:VIMRC_PATH . s:PATH_DIVISOR . "vendor"
+if isdirectory(s:VENDOR_PATH)
+    exec "set rtp+=" . s:VENDOR_PATH
+endif
 let g:UltiSnipsSnippetDirectories=["UltiSnips","wmj_snippets"]           
+" ~/.vim/vendor/{ft}.snippets
+function! EditFtSnippet()
+    let s:WORKING_FT_SNIPPET = s:VENDOR_PATH . s:PATH_DIVISOR . "wmj_snippets" . s:PATH_DIVISOR . &filetype . ".snippets"
+    exec "vsplit " . s:WORKING_FT_SNIPPET
+    "autocmd Buf
+endfunction
+" ~/.vim/vendor/all.snippets
+function! EditAllSnippet()
+    let s:WORKING_ALL_SNIPPET = s:VENDOR_PATH . s:PATH_DIVISOR . "wmj_snippets" . s:PATH_DIVISOR . "all.snippets"
+    exec "vsplit " . s:WORKING_ALL_SNIPPET
+endfunction
+if !exists(":FT")
+    command FT call EditFtSnippet()
+endif
+if !exists(":FTA")
+    command FTA call EditAllSnippet()
+endif
+" ------------------------------------------------------------------
+
 
 
 " Plug 'Valloric/YouCompleteMe' 
