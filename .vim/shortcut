@@ -9,8 +9,8 @@ let s:VIMRC_PATH = expand('<sfile>:p:h')
 
 " Short Cut
 "--------------------
-"map <C-F2> <Esc>:e ~/.vim/vimrc<CR>
-exec "map <C-F2> <Esc>:e " . s:VIMRC_PATH . s:PATH_DIVISOR . "vimrc<CR>"
+"exec "map <C-F2> <Esc>:e " . s:VIMRC_PATH . s:PATH_DIVISOR . "vimrc<CR>"
+exec "map <F4> <Esc>:e " . s:VIMRC_PATH . s:PATH_DIVISOR . "vimrc<CR>"
 map <F2> :NERDTreeToggle<CR>
 nmap <F3> :TagbarToggle<CR>
 nnoremap <F12> :e ++enc=utf-8<CR>

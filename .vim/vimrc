@@ -190,12 +190,13 @@ set ignorecase
 "-------------------
 if has("win32") || has("win64")
     let g:Tlist_Ctags_Cmd=$VIM . '/tools/ctags58/ctags.exe'
-    let $CTAGS=g:Tlist_Ctags_Cmd
 elseif system('uname')=~'Darwin'
     let g:Tlist_Ctags_Cmd='/usr/local/bin/ctags'   " brew install ctags
-    let $CTAGS=g:Tlist_Ctags_Cmd
+else
+    let g:Tlist_Ctags_Cmd='/usr/bin/ctags'  
 endif
 
+let $CTAGS=g:Tlist_Ctags_Cmd
 set tags=./tags;  "This will look in the current directory for tags, and work up the tree towards root until one is found.
 let tlist_objc_settings    = 'objc;i:interface;c:class;m:method;p:property'
 let g:tagbar_ctags_bin=g:Tlist_Ctags_Cmd
