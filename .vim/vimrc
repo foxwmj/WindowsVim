@@ -246,3 +246,9 @@ let s:FUNCTION_FILE = s:VIMRC_PATH . s:PATH_DIVISOR . "function"
 if filereadable(s:FUNCTION_FILE)
     exec "source " . s:FUNCTION_FILE
 endif
+
+"=========================
+" auto command
+"
+au BufRead,BufNewFile /etc/nginx/*,/usr/local/nginx/conf/* if &ft == '' | setfiletype nginx | endif 
+
