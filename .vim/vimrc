@@ -260,7 +260,7 @@ endif
 "=========================
 " auto command
 "
-au BufRead,BufNewFile /etc/nginx/*,/usr/local/nginx/conf/* if &ft == '' | setfiletype nginx | endif 
+au BufRead,BufNewFile /etc/nginx/*,/usr/local/nginx/conf/*,*.nginx if &ft == '' | setfiletype nginx | endif 
 
 
 "=====================================
