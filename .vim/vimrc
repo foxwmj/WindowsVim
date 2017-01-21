@@ -112,6 +112,15 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsListSnippets = "<c-tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+"" turn on tag completion
+let g:ycm_collect_identifiers_from_tags_files=1
+"" start completion from the first character
+let g:ycm_min_num_of_chars_for_completion=2
+"" don't cache completion items
+let g:ycm_cache_omnifunc=0
+"" complete syntax keywords
+let g:ycm_seed_identifiers_with_syntax=1
 " ------------------------------------------------------------------
 
 " All of your Plugins must be added before the following line
@@ -253,3 +262,24 @@ endif
 "
 au BufRead,BufNewFile /etc/nginx/*,/usr/local/nginx/conf/* if &ft == '' | setfiletype nginx | endif 
 
+
+"=====================================
+"Filetype Specific Funciton 
+"=====================================
+function! Nginx_F12()
+    if filereadable("/usr/local/nginx/conf/nginx.conf")
+         map <F12> <Esc>:edit /usr/local/nginx/conf/nginx.conf<CR>
+    elseif filereadable("/etc/nginx/nginx.conf")
+         map <F12> <Esc>:edit /etc/nginx/nginx.conf<CR>
+    elseif filereadable("/usr/local/etc/nginx/nginx.conf")
+         map <F12> <Esc>:edit /usr/local/etc/nginx/nginx.conf<CR>
+    endif
+endfunction
+au Filetype nginx  call Nginx_F12()
+
+function! Python_F12()
+    map <F12> <Esc>:!python %<CR>
+endfunction
+au Filetype python call Python_F12()
+
+nnoremap <F11> :e ++enc=utf-8<CR>
