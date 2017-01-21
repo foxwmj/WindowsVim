@@ -17,5 +17,15 @@ endsnippet
 
 # quick sample
 snippet pr "print3"
-print("${1:Hello World!}"${2:,})${0}
+print(${1:"Hello World!"}${2:})${0}
+endsnippet
+
+
+snippet cin
+with open(${1:"in.csv"}, "r") as cin:
+endsnippet
+
+
+snippet cout
+with open(${1:"out.csv"}, "w") as cout:
 endsnippet
