@@ -55,8 +55,24 @@ let g:powerline_symbols = 'fancy'
 
 " ------------------------------------------------------------------
 Plug 'SirVer/ultisnips'
-"set rtp+="D:\\WindowsVim\\vim.plug.runtime\\my_snippets"
+
+" Add ~/.vim/vendor to rtp(RunTimePath)
+let s:VENDOR_PATH= s:VIMRC_PATH . s:PATH_DIVISOR . "vendor"
+if isdirectory(s:VENDOR_PATH)
+    exec "set rtp+=" . s:VENDOR_PATH
+endif
 let g:UltiSnipsSnippetDirectories=["UltiSnips","wmj_snippets"]           
+" ~/.vim/vendor/{ft}.snippets
+function! EditFtSnippet()
+    let s:WORKING_FT_SNIPPET = s:VENDOR_PATH . s:PATH_DIVISOR . "wmj_snippets" . s:PATH_DIVISOR . &filetype . ".snippets"
+    exec "vsplit " . s:WORKING_FT_SNIPPET
+    "autocmd Buf
+endfunction
+if !exists(":FT")
+    command FT call EditFtSnippet()
+endif
+" ------------------------------------------------------------------
+
 
 
 " Plug 'Valloric/YouCompleteMe' 
@@ -227,3 +243,25 @@ let s:FUNCTION_FILE = s:VIMRC_PATH . s:PATH_DIVISOR . "function"
 if filereadable(s:FUNCTION_FILE)
     exec "source " . s:FUNCTION_FILE
 endif
+
+"=========================
+" auto command
+"
+au BufRead,BufNewFile /etc/nginx/*,/usr/local/nginx/conf/*,*.nginx if &ft == '' | setfiletype nginx | endif 
+
+
+
+"=====================================
+"Filetype Specific Funciton 
+"=====================================
+function! Nginx_F12()
+    if filereadable("/usr/local/nginx/conf/nginx.conf")
+         map <F12> <Esc>:edit /usr/local/nginx/conf/nginx.conf<CR>
+    elseif filereadable("/etc/nginx/nginx.conf")
+         map <F12> <Esc>:edit /etc/nginx/nginx.conf<CR>
+    elseif filereadable("/usr/local/etc/nginx/nginx.conf")
+         map <F12> <Esc>:edit /usr/local/etc/nginx/nginx.conf<CR>
+    endif
+endfunction
+au Filetype nginx  call Nginx_F12()
+

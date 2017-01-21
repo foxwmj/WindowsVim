@@ -1,0 +1,40 @@
+snippet http 
+http {
+    server${0}
+}
+endsnippet
+
+
+snippet server
+server {
+    # Server configuration
+    listen                  ${1:127.0.0.1:80}
+    server_name             ${2:www.a.com www.b.com}
+
+    location${3}
+
+    location${4}
+}
+endsnippet
+
+
+snippet location
+location ${1:/some/path/} {
+    ${0}
+}
+endsnippet
+
+
+snippet location_start
+location ${1:/some/path/} {
+    ${0}
+}
+endsnippet
+
+
+snippet location_any_pos
+location ~ ${1:/some/path/} {
+    ${0}
+}
+endsnippet
+
